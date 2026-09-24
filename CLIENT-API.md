@@ -1,0 +1,119 @@
+# `@darkmoon/client` + `darkmoon-ci` — developer / API note
+
+How the integrations consume the frozen contract. The authoritative spec is
+[`darkmoon-client/CONTRACT.md`](../darkmoon-client/CONTRACT.md); this is the
+developer-facing quick reference.
+
+## Linking the package
+
+```bash
+# tarball (CI-reproducible; used by the GitHub Action's vendor/):
+cd darkmoon-client && npm run build && npm pack   # -> darkmoon-client-0.1.0.tgz
+npm install /path/to/darkmoon-client-0.1.0.tgz
+# or file: dependency for local iteration:
+#   "@darkmoon/client": "file:../darkmoon-client"
+```
+
+```ts
+import {
+  DarkmoonClient, computeFailPolicy, parseFailOn, scrubSecrets,
+  CONTRACT_VERSION, SEVERITIES, FINDING_STATUSES, CAMPAIGN_STATUSES,
+} from "@darkmoon/client";
+```
+
+Shell steps (Jenkins, GitLab) use the bundled **CLI** instead:
+
+```bash
+npx darkmoon-ci run --target http://app:3000 --fail-on critical,high --json
+# exit 0 pass · 2 fail-policy tripped · 1 tool/usage error
+```
+
+## The frozen surface (`DarkmoonClientContract`)
+
+```ts
+detect(): Promise<Capabilities>;
+launchCampaign(input: LaunchInput): Promise<LaunchResult>;
+getCampaignStatus(ref: CampaignRef): Promise<Campaign>;
+listCampaigns(filter?): Promise<Campaign[]>;
+getCampaign(id: CampaignRef): Promise<Campaign>;
+listFindings(filter, opts?): Promise<Finding[]>;
+getFinding(id, opts?): Promise<Finding>;
+getSeveritySummary(ref): Promise<SeveritySummary>;
+getReport(ref, opts?): Promise<Report>;
+waitForCompletion(ref, opts?): Promise<Campaign>;
+streamProgress(ref): AsyncIterable<ProgressEvent>;
+```
+
+`CampaignRef = string | CorrelationHandle | LaunchResult`. The correlation
+handle is opaque — pass it back, do not read its fields.
+
+## Canonical enums (frozen for `1.x`)
+
+| Set | Values |
+|---|---|
+| `SEVERITIES` | `critical, high, medium, low, info` (unknown → `info`) |
+| `FINDING_STATUSES` | `exploited, confirmed, unconfirmed, remediated` |
+| `CAMPAIGN_STATUSES` | `queued, running, completed, stopped, failed, unknown` |
+
+## Capability detection
+
+`detect()` returns `Capabilities { edition, mode, version, available, features,
+detectedBy, warnings }`. Pro is discovered via `GET /api/v1/system/info`
+(`edition`, `api_version`, `contract_version`, `capabilities`, `features`), with a
+root-probe fallback. `features` is the additive gate: `{ restApi, streaming, auth,
+remediation, dashboard, scheduler }` (the endpoint's `sse_progress` maps to
+`streaming`; `dashboard`/`restApi` are implied by a live Pro API). Surface
+`caps.warnings` (e.g. `must_change_password`, OSS collision) to the user — they
+never contain secrets. `negotiateProVersion` enforces `SUPPORTED_API_MAJORS = [1]`
+inside `detect()`, so every consumer inherits the version guard.
+
+## Safety helpers (integrations MUST use)
+
+```ts
+// CI verdict — the ONLY source of pass/fail:
+const verdict = computeFailPolicy(findingsOrSummary, "critical,high");
+if (verdict.failed) process.exit(verdict.exitCode);         // exitCode === 2
+
+// Redaction-safe reads (defaults):
+await client.getReport(ref);                                // redacted body
+await client.listFindings(filter);                          // evidence: null
+await client.listFindings(filter, { includeEvidence: true });   // redacted evidence
+
+// Two-key opt-in for real values (internal use only; never emit to CI/logs/UI):
+await client.getReport(ref, { full: true, private: true });
+await client.getFinding(id, { includeEvidence: true, full: true, private: true });
+// getReport(ref, { full: true })  // THROWS — deliberate friction
+
+scrubSecrets(anyStringYouLog);      // JWT/API-key/PAT/license/bearer/credential masking
+// NEVER log/serialize Campaign.raw or Finding.raw.
+```
+
+## Errors — branch on `.code`, not message
+
+`DarkmoonError` base with subclasses: `DarkmoonNotAvailable`, `AuthError`,
+`LicenseError`, `EditionMismatch`, `UnsupportedVersion`, `ReportNotReady`,
+`CampaignNotFound`, `FindingNotFound`, `CorrelationFailed`, `TimeoutError`,
+`StuckCampaignError`, `NetworkError`, `SchemaInvalid`, `InsecureDefaultError`,
+`NotSupported`.
+
+## `darkmoon-ci` CLI
+
+```
+detect | launch | status <id> | summary <id> | findings <id> |
+report <id> [--full --private] | wait <id> | run --target <t>
+```
+
+Backends via flags or env: `DARKMOON_MODE`, `DARKMOON_PRO_URL`,
+`DARKMOON_PRO_USER`, `DARKMOON_PRO_PASS`, `DARKMOON_PRO_TOKEN`,
+`DARKMOON_OSS_DATA_DIR`, `DARKMOON_OSS_REPORTS_DIR`, `DARKMOON_OSS_SCRIPT`.
+Common: `--json`, `--fail-on`, `--timeout`, `--poll`, `--full --private`, `--out`.
+
+## Conformance & the Kotlin port
+
+`OssLocalBackend` and `ProHttpBackend` normalize to **identical** `Campaign` /
+`Finding` / `SeveritySummary` objects (proven in `test/conformance`). The
+JetBrains Kotlin client does not re-implement normalization — it drives
+`darkmoon-ci` / `darkmoon-bridge.mjs` as a subprocess and asserts its Kotlin types
+against the shared, language-neutral goldens in
+[`darkmoon-client/fixtures/conformance/*.golden.json`](../darkmoon-client/fixtures/conformance)
+(regenerated by `scripts/gen-golden.mjs`; the plugin keeps a synced copy).
