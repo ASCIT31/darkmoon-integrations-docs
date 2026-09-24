@@ -1,14 +1,14 @@
 # Darkmoon Integrations — Overview
 
 The five official Darkmoon integrations share a single frozen foundation:
-[`@darkmoon/client`](../darkmoon-client) (`CONTRACT_VERSION = 1.0.0`). Each
+[`@darkmoon_ai/client`](../darkmoon-client) (`CONTRACT_VERSION = 1.0.0`). Each
 integration links that package (or its `darkmoon-ci` CLI) and speaks to **Darkmoon
 OSS** (local CLI + on-disk JSON) or **Darkmoon Pro** (`/api/v1` REST + JWT + SSE)
 behind the same normalized contract.
 
 | Repo | Artifact | Distribution channel |
 |---|---|---|
-| [`darkmoon-client`](../darkmoon-client) | `@darkmoon/client` (lib) + `darkmoon-ci` (CLI) | npm |
+| [`darkmoon-client`](../darkmoon-client) | `@darkmoon_ai/client` (lib) + `darkmoon-ci` (CLI) | npm |
 | [`darkmoon-action`](../darkmoon-action) | GitHub Action (node20, bundled `dist/`) | GitHub Marketplace (git tag) |
 | [`darkmoon-gitlab`](../darkmoon-gitlab) | GitLab CI/CD Component (`scan`) | GitLab CI/CD Catalog (git tag) |
 | [`darkmoon-jenkins`](../darkmoon-jenkins) | Jenkins plugin (`darkmoon-scan.hpi`) | Jenkins Update Center |
@@ -88,7 +88,7 @@ Every backend value is normalized into the same canonical enums:
 ## Documents
 
 - [`CLIENT-API.md`](./CLIENT-API.md) — developer/API reference for
-  `@darkmoon/client` + `darkmoon-ci` (the contract surface).
+  `@darkmoon_ai/client` + `darkmoon-ci` (the contract surface).
 - [`PUBLISH-READINESS-AUDIT.md`](./PUBLISH-READINESS-AUDIT.md) — per-target
   publishability, tokens, and the `gh` / `npm` authentication state.
 - [`../darkmoon-client/CONTRACT.md`](../darkmoon-client/CONTRACT.md) — the frozen

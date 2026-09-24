@@ -1,4 +1,4 @@
-# `@darkmoon/client` + `darkmoon-ci` — developer / API note
+# `@darkmoon_ai/client` + `darkmoon-ci` — developer / API note
 
 How the integrations consume the frozen contract. The authoritative spec is
 [`darkmoon-client/CONTRACT.md`](../darkmoon-client/CONTRACT.md); this is the
@@ -11,14 +11,14 @@ developer-facing quick reference.
 cd darkmoon-client && npm run build && npm pack   # -> darkmoon-client-0.1.0.tgz
 npm install /path/to/darkmoon-client-0.1.0.tgz
 # or file: dependency for local iteration:
-#   "@darkmoon/client": "file:../darkmoon-client"
+#   "@darkmoon_ai/client": "file:../darkmoon-client"
 ```
 
 ```ts
 import {
   DarkmoonClient, computeFailPolicy, parseFailOn, scrubSecrets,
   CONTRACT_VERSION, SEVERITIES, FINDING_STATUSES, CAMPAIGN_STATUSES,
-} from "@darkmoon/client";
+} from "@darkmoon_ai/client";
 ```
 
 Shell steps (Jenkins, GitLab) use the bundled **CLI** instead:

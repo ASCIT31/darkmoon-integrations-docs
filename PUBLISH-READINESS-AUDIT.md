@@ -7,7 +7,7 @@ _As of 2026-09-24. Nothing was pushed or published — this drives Wave-4._
 | Tool | State | Detail |
 |---|---|---|
 | `gh` | **authenticated** | account `MBK-fr`, **admin** of the `ASCIT31` GitHub org; scopes include `repo`, `workflow`, `admin:org`, `write:packages`, `delete_repo`. (The `Dark-Moon-X` gh account token is invalid — ignore.) |
-| `npm` | **NOT authenticated** | `npm whoami` fails; no `~/.npmrc`; no `NPM_TOKEN`. `@darkmoon/client` is unregistered (name free), but the `@darkmoon` **scope/org must be created on npmjs by a human**. |
+| `npm` | **NOT authenticated** | `npm whoami` fails; no `~/.npmrc`; no `NPM_TOKEN`. `@darkmoon_ai/client` is unregistered (name free), but the `@darkmoon` **scope/org must be created on npmjs by a human**. |
 | GitLab (`glab`/token) | **none** | `glab` not installed; no `GITLAB_TOKEN`/`CI_JOB_TOKEN`. |
 | VS Code (`vsce`/`ovsx`) | **no token** | no `VSCE_PAT`/`OVSX_PAT` (vsce runnable via `npx`). |
 | JetBrains | **no token** | no `PUBLISH_TOKEN`/signing material. |
@@ -22,7 +22,7 @@ the platform accounts and tokens are not present here.
 
 | Target | Auto-publishable now? | Exact next step |
 |---|---|---|
-| **client → npm** (`@darkmoon/client`) | **No — human-only** | Create the `@darkmoon` org/scope on npmjs, `npm login` (or set `NPM_TOKEN`), then `cd darkmoon-client && npm publish --access public` (scoped package → `--access public` required). |
+| **client → npm** (`@darkmoon_ai/client`) | **No — human-only** | Create the `@darkmoon` org/scope on npmjs, `npm login` (or set `NPM_TOKEN`), then `cd darkmoon-client && npm publish --access public` (scoped package → `--access public` required). |
 | **client → GitHub** (`ASCIT31/darkmoon-client`) | **Yes (gh)** | `gh repo create ASCIT31/darkmoon-client --private --source=/home/mehdi/darkmoon-client --remote=origin --push` (choose `--public` per policy — see note ①). |
 | **action → GitHub** (`ASCIT31/darkmoon-action`) | **Yes (gh)** for the repo | `gh repo create ASCIT31/darkmoon-action --public --source=/home/mehdi/darkmoon-action --remote=origin --push`. Marketplace **listing is human-only**: tag `v0.1.0` + a moving `v0`/`v1`, then "Publish to Marketplace" in the GitHub UI (accept the Marketplace agreement once). |
 | **gitlab → CI/CD Catalog** | **No — human-only (different platform)** | Create a GitLab project (pick the Darkmoon namespace), push, tag semver; the `release` job publishes to the Catalog via `CI_JOB_TOKEN`. Needs a GitLab account/namespace + a runner — none configured here. |
@@ -48,7 +48,7 @@ and the marketplace-facing repos to public — adjust to policy).
 - `repository` / `homepage` / `bugs` metadata set on client + action `package.json`;
   vscode/jetbrains already had `ASCIT31/...` repository URLs; jenkins pom `scm` →
   jenkinsci (correct for its channel).
-- `@darkmoon/client` `files` allowlist ships **`dist` + docs only** (fixtures no
+- `@darkmoon_ai/client` `files` allowlist ships **`dist` + docs only** (fixtures no
   longer shipped); tarball verified 12 files, clean; `npm run build` + `npm test`
   (60/60) green.
 - Action vendors the **fixture-free** client tarball; `npm ci` reproduces clean.
