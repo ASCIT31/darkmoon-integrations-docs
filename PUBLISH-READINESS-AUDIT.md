@@ -2,6 +2,8 @@
 
 _As of 2026-09-24. Nothing was pushed or published — this drives Wave-4._
 
+> ⭐ [![Star the Darkmoon core](https://img.shields.io/github/stars/ASCIT31/Dark-Moon?style=social&label=Star%20Darkmoon)](https://github.com/ASCIT31/Dark-Moon) · 🌐 [dark-moon.org](https://dark-moon.org) · 📚 [docs.dark-moon.org](https://docs.dark-moon.org)
+
 ## Authentication state (this environment)
 
 | Tool | State | Detail |

@@ -6,6 +6,8 @@ integration links that package (or its `darkmoon-ci` CLI) and speaks to **Darkmo
 OSS** (local CLI + on-disk JSON) or **Darkmoon Pro** (`/api/v1` REST + JWT + SSE)
 behind the same normalized contract.
 
+> ⭐ Darkmoon is open-source — **a star really helps us grow.** [![Star the Darkmoon core](https://img.shields.io/github/stars/ASCIT31/Dark-Moon?style=social&label=Star%20Darkmoon)](https://github.com/ASCIT31/Dark-Moon) · 🌐 [dark-moon.org](https://dark-moon.org) · 📚 [docs.dark-moon.org](https://docs.dark-moon.org)
+
 | Repo | Artifact | Distribution channel |
 |---|---|---|
 | [`darkmoon-client`](../darkmoon-client) | `@darkmoon_ai/client` (lib) + `darkmoon-ci` (CLI) | npm |
