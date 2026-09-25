@@ -22,6 +22,24 @@ Darkmoon is open-source — **a star really helps us grow.** [![Star the Darkmoo
 | Jenkins | [Download the .hpi](https://github.com/ASCIT31/darkmoon-jenkins/releases) |
 | Client & CLI | [npm: @darkmoon_ai/client](https://www.npmjs.com/package/@darkmoon_ai/client) |
 
+## Marketplace status
+
+_Last updated 2026-09-25._
+
+| Integration | Channel | Status |
+|---|---|---|
+| VS Code | [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=Darkmoon.darkmoon-vscode) | ✅ Live |
+| GitLab CI/CD | [CI/CD Catalog](https://gitlab.com/explore/catalog/Dark-Moon-X/darkmoon-scan) | ✅ Live |
+| Client & CLI | [npm @darkmoon_ai/client](https://www.npmjs.com/package/@darkmoon_ai/client) | ✅ Live |
+| n8n | [npm n8n-nodes-darkmoon](https://www.npmjs.com/package/n8n-nodes-darkmoon) | ✅ Live on npm · 🕓 verified-node review pending |
+| JetBrains | [JetBrains Marketplace](https://plugins.jetbrains.com/plugin/34497-darkmoon) | 🕓 In moderation |
+| Splunk | [Splunkbase (app 9875)](https://splunkbase.splunk.com/app/9875) | 🕓 Pending approval (≤ 5 business days) |
+| GitHub Actions | [GitHub Marketplace](https://github.com/marketplace/actions/darkmoon-pentest) | 🕓 Listing pending (usable via `uses:` today) |
+| Grafana | [darkmoon-grafana](https://github.com/ASCIT31/darkmoon-grafana) | ✅ Dashboards + self-host plugin now · 🕓 grafana.com library pending |
+| Jenkins | [Releases (.hpi)](https://github.com/ASCIT31/darkmoon-jenkins/releases) | ✅ Downloadable · 🕓 Update Center hosting pending |
+
+Everything marked 🕓 is submitted and awaiting the marketplace's own review/moderation; each is already usable via the direct install path noted above in the meantime.
+
 ## Documentation
 
 - [**Integrations overview**](INTEGRATIONS-OVERVIEW.md) — the shared foundation, contract, and per-repo matrix.
