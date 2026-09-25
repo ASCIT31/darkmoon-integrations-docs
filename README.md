@@ -34,7 +34,7 @@ _Last updated 2026-09-25._
 | n8n | [npm n8n-nodes-darkmoon](https://www.npmjs.com/package/n8n-nodes-darkmoon) | ✅ Live on npm · 🕓 verified-node review pending |
 | JetBrains | [JetBrains Marketplace](https://plugins.jetbrains.com/plugin/34497-darkmoon) | 🕓 In moderation |
 | Splunk | [Splunkbase (app 9875)](https://splunkbase.splunk.com/app/9875) | 🕓 Pending approval (≤ 5 business days) |
-| GitHub Actions | [GitHub Marketplace](https://github.com/marketplace/actions/darkmoon-pentest) | 🕓 Listing pending (usable via `uses:` today) |
+| GitHub Actions | [GitHub Marketplace](https://github.com/marketplace/actions/darkmoon-pentest) | ✅ Live |
 | Grafana | [darkmoon-grafana](https://github.com/ASCIT31/darkmoon-grafana) | ✅ Dashboards + self-host plugin now · 🕓 grafana.com library pending |
 | Jenkins | [Releases (.hpi)](https://github.com/ASCIT31/darkmoon-jenkins/releases) | ✅ Downloadable · 🕓 Update Center hosting pending |
 
