@@ -1,5 +1,10 @@
 # Darkmoon Integrations
 
+[![License: AGPL-3.0](https://img.shields.io/badge/license-AGPL--3.0-0A2472)](LICENSING.md)
+
+> [!IMPORTANT]
+> **License change.** This documentation moved from MIT (stated in this README, without a LICENSE file) to the GNU AGPL v3.0 on 20 November 2026; every commit up to `cd8feb4`, including the `v1.0.0` tag, stays under MIT. The integration repositories themselves keep their own licences (MIT or Apache-2.0). Darkmoon Community is moving to the GNU AGPL v3.0 too (its commits up to `edfe9cb`, 27 October 2026, and earlier outside contributions stay GPL v3.0). Details: [LICENSING.md](LICENSING.md) · [Darkmoon LICENSING.md](https://github.com/ASCIT31/Dark-Moon/blob/master/LICENSING.md).
+
 Cross-platform documentation for the official **Darkmoon** integrations — one
 frozen contract ([`@darkmoon_ai/client`](https://www.npmjs.com/package/@darkmoon_ai/client)),
 six delivery channels, the same normalized behavior against **Darkmoon OSS**
@@ -79,4 +84,4 @@ only, no evidence, endpoints or tokens.
 
 ## License
 
-MIT © ASC-IT / Darkmoon
+This documentation is licensed under the GNU AGPL v3.0 (AGPL-3.0-only), see [LICENSE](LICENSE) and [LICENSING.md](LICENSING.md). Earlier versions, up to commit `cd8feb4` and the `v1.0.0` tag, stay under the MIT License ([LICENSES/MIT.txt](LICENSES/MIT.txt)). Each integration repository keeps its own licence. © ASC-IT / Darkmoon
